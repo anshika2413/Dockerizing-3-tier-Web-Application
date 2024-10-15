@@ -50,7 +50,7 @@ To grab database endpoint – browse to AWS-RDS-database >> Connectivity & secur
 Create a container and connect to it from local machine
 The below command needs to be run on a local PC (in my case it’s a Windows cmd). This will create a container from docker image node:14-alpine and also login to the container.
 
-                                                  winpty docker run -it -p 3306:3306 node:14-alpine sh
+    winpty docker run -it -p 3306:3306 node:14-alpine sh
 Once logged in to the container, follow below steps in which we create a directory, clone the git repo, connect to the database server and create database and then upload db dump to the database.
  
 Create directory :
