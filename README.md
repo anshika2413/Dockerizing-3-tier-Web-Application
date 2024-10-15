@@ -44,34 +44,34 @@ Connectivity & security >> VPC security groups >> Edit inbound rules >> PORT 330
 # Create a container to connect to database in the AWS RDS and upload data.
 Follow below steps :
 
-Grab database Endpoint URL from the AWS RDS
+1) Grab database Endpoint URL from the AWS RDS
 To grab database endpoint – browse to AWS-RDS-database >> Connectivity & security >> endpoint and port.
 
-Create a container and connect to it from local machine
+2) Create a container and connect to it from local machine
 The below command needs to be run on a local PC (in my case it’s a Windows cmd). This will create a container from docker image node:14-alpine and also login to the container.
 
-    winpty docker run -it -p 3306:3306 node:14-alpine sh
+       winpty docker run -it -p 3306:3306 node:14-alpine sh
 Once logged in to the container, follow below steps in which we create a directory, clone the git repo, connect to the database server and create database and then upload db dump to the database.
  
-Create directory :
+3) Create directory :
    
-    mkdir -p /home/webapp
-    cd /home/webapp
-Install mysql and git in the container
+        mkdir -p /home/webapp
+        cd /home/webapp
+4) Install mysql and git in the container
     
-    apk add git mysql mysql-client
-Git clone 
+        apk add git mysql mysql-client
+5) Git clone 
   
-    git clone https://github.com/devopsenlight/web-app-deployment-on-cloud.git
-    cd /home/webapp/web-app-deployment-on-cloud/backend
-Connect to the database server and create database 
+        git clone https://github.com/devopsenlight/web-app-deployment-on-cloud.git
+        cd /home/webapp/web-app-deployment-on-cloud/backend
+6) Connect to the database server and create database 
 
-    mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p
-    create database webapp;
-    exit;
- Upload db dump to the database 
+        mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p
+        create database webapp;
+        exit;
+ 7) Upload db dump to the database 
 
-    mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p webapp < sql_dump.sql
+        mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p webapp < sql_dump.sql
 
 # To build docker image using Dockerfile
     docker build . --no-cache -t webapp-be (For Backend)
