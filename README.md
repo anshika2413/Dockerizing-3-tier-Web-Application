@@ -53,24 +53,25 @@ The below command needs to be run on a local PC (in my case it’s a Windows cmd
                                                   winpty docker run -it -p 3306:3306 node:14-alpine sh
 Once logged in to the container, follow below steps in which we create a directory, clone the git repo, connect to the database server and create database and then upload db dump to the database.
  
-    Create directory :
-mkdir -p /home/webapp
-cd /home/webapp
+Create directory :
+   
+    mkdir -p /home/webapp
+    cd /home/webapp
+Install mysql and git in the container
+    
+    apk add git mysql mysql-client
+Git clone 
+  
+    git clone https://github.com/devopsenlight/web-app-deployment-on-cloud.git
+    cd /home/webapp/web-app-deployment-on-cloud/backend
+Connect to the database server and create database 
 
-    Install mysql and git in the container
-apk add git mysql mysql-client
+    mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p
+    create database webapp;
+    exit;
+ Upload db dump to the database 
 
-    Git clone 
-git clone https://github.com/devopsenlight/web-app-deployment-on-cloud.git
-cd /home/webapp/web-app-deployment-on-cloud/backend
-
-    Connect to the database server and create database 
-mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p
-create database webapp;
-exit;
-
-    Upload db dump to the database 
-mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p webapp < sql_dump.sql
+    mysql -h test-databaseq.caxdt0nmodrh.ap-south-1.rds.amazonaws.com -u admin -p webapp < sql_dump.sql
 
 # To build docker image using Dockerfile
     docker build . --no-cache -t webapp-be (For Backend)
